@@ -1,9 +1,14 @@
-import { createStore } from "vuex";
+import { createStore } from 'vuex'
+import services from './services'
+import { AppState } from './types/state.interface'
 
 export default createStore({
-  state: {},
+  state: {
+    isAuthenticated: false,
+    userData: null,
+  } as AppState,
   getters: {},
   mutations: {},
-  actions: {},
+  actions: services,
   modules: {},
-});
+})
