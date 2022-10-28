@@ -1,11 +1,9 @@
 <template>
-  <NewSpendModal />
   <router-view />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import NewSpendModal from './components/NewSpendModal.vue'
 import { ActionTypes } from './store/types/actionTypes'
 
 @Options({
@@ -15,7 +13,6 @@ import { ActionTypes } from './store/types/actionTypes'
       this.$router.push('/login')
     }
   },
-  components: { NewSpendModal },
 })
 export default class App extends Vue {}
 </script>

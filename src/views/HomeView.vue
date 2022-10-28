@@ -14,6 +14,14 @@
         <a-skeleton />
       </nav>
       <MoneyChart v-if="spends.length" />
+      <NewSpendModal
+        class="spend-add"
+        :buttonStyles="{
+          width: 'calc(100% - 40px)',
+          'border-radius': '10px',
+          margin: '20px',
+        }"
+      />
     </div>
     <div class="right-part">
       <div v-if="spends.length" class="spendings">
@@ -35,13 +43,15 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
-import moment from 'moment'
-import { UserData } from '@/types/userData.interface'
-import Spending from '@/components/Spending.vue'
 import { ActionTypes } from '@/store/types/actionTypes'
-import MoneyChart from '@/components/MoneyChart.vue'
 import { Expense } from '@/types/expense.interface'
 import { parseMoney } from '@/utils/parseMoney'
+import { UserData } from '@/types/userData.interface'
+
+import moment from 'moment'
+import Spending from '@/components/Spending.vue'
+import MoneyChart from '@/components/MoneyChart.vue'
+import NewSpendModal from '@/components/NewSpendModal.vue'
 
 @Options({
   data() {
@@ -119,7 +129,7 @@ import { parseMoney } from '@/utils/parseMoney'
       this.loading = false
     },
   },
-  components: { Spending, MoneyChart },
+  components: { Spending, MoneyChart, NewSpendModal },
 })
 export default class HomeView extends Vue {}
 </script>
@@ -128,6 +138,9 @@ export default class HomeView extends Vue {}
 nav {
   margin: 10px 0;
   text-align: center;
+}
+.spend-add {
+  width: 100%;
 }
 .row {
   display: flex;
