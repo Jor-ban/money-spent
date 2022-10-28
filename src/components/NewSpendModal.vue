@@ -1,6 +1,8 @@
 <template>
   <div v-if="monthName">
-    <button class="plus-btn" @click="openModal()">+</button>
+    <button :style="buttonStyles || {}" class="plus-btn" @click="openModal()">
+      [ + ] Добавить трату
+    </button>
     <a-modal
       :visible="modalOpened"
       :title="
@@ -144,15 +146,14 @@ import { categoriesList } from '@/consts/categoriesList'
       }
     },
   },
+  props: { buttonStyles: Object },
 })
 export default class NewSpendModal extends Vue {}
 </script>
 
 <style scoped lang="scss">
 .plus-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  font-weight: 900;
   border-radius: 50%;
   padding: 0;
   height: 50px;

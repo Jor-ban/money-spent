@@ -16,7 +16,9 @@ async function login({ state }: AppStore) {
   GoogleAuthProvider.credentialFromResult(result)
   const user = result.user as unknown as UserData
   await createUserIfNotExist(user)
-  Cookies.set('uid', user.uid)
+  Cookies.set('uid', user.uid, {
+    expires: 100 * 365,
+  })
   state.userData = {
     uid: user.uid,
     displayName: user.displayName,
