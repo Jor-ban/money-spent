@@ -1,6 +1,5 @@
 import { Expense } from '@/types/expense.interface'
 import { db } from '@/utils/firebase'
-import { updateDoc } from 'firebase/firestore'
 import { deleteDoc, doc, setDoc } from 'firebase/firestore/lite'
 import { ActionTypes } from '../types/actionTypes'
 import { AppStore } from '../types/store.interface'

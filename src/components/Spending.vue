@@ -1,6 +1,13 @@
 <template>
   <div class="spending">
-    <div :class="['category-' + spending.type, 'spending-type']"></div>
+    <div
+      :class="['category-' + spending.type, 'spending-type']"
+      :style="{
+        'background-color': categoriesList.find(
+          (c) => c.codename === spending.type
+        ).color,
+      }"
+    ></div>
     <div class="mr-auto">
       <h2>{{ parseMoney(spending.amount) }} сум</h2>
       <p>{{ moment(spending.time) }}</p>
@@ -20,9 +27,13 @@ import { Options, Vue } from 'vue-class-component'
 import { parseMoney } from '@/utils/parseMoney'
 import { EditOutlined } from '@ant-design/icons-vue'
 import { MutationTypes } from '@/store/types/mutationTypes'
+import { categoriesList } from '@/consts/categoriesList'
 
 @Options({
   name: 'Spending',
+  data: () => ({
+    categoriesList,
+  }),
   methods: {
     moment(time) {
       return moment(time).format('DD hh:mm')

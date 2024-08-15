@@ -26,19 +26,32 @@
       <p>
         <span>Категория: </span>
         <a-dropdown>
-          <a-button :class="'btn-category category-' + type" @click.prevent>
-            {{ categoriesList[type] }}
+          <a-button
+            @click.prevent
+            :class="'btn-category category-' + type"
+            :style="{
+              background: getCategoryData(type)?.color,
+            }"
+          >
+            {{ getCategoryData(type)?.title }}
             <DownOutlined />
           </a-button>
           <template #overlay>
             <a-menu>
               <a-menu-item
-                v-for="key in Object.keys(categoriesList)"
-                :key="key"
+                v-for="codename in categoriesList.map((c) => c.codename)"
+                :key="codename"
               >
-                <a @click="type = key" class="category">
-                  <div :class="'category-color category-' + key">_</div>
-                  {{ categoriesList[key] }}
+                <a @click="type = codename" class="category">
+                  <div
+                    :class="'category-color category-' + codename"
+                    :style="{
+                      background: getCategoryData(codename)?.color,
+                    }"
+                  >
+                    _
+                  </div>
+                  {{ getCategoryData(codename)?.title }}
                 </a>
               </a-menu-item>
             </a-menu>
@@ -67,7 +80,7 @@ import { parseMoney } from '@/utils/parseMoney'
 import { Options, Vue } from 'vue-class-component'
 import { Expense } from '@/types/expense.interface'
 import { MutationTypes } from '@/store/types/mutationTypes'
-import { categoriesList } from '@/consts/categoriesList'
+import { ICategory, categoriesList } from '@/consts/categoriesList'
 
 @Options({
   data: () => ({
@@ -123,6 +136,9 @@ import { categoriesList } from '@/consts/categoriesList'
         comment: '',
         type: 'no-category',
       })
+    },
+    getCategoryData(codename: string): ICategory | undefined {
+      return this.categoriesList.find((c: ICategory) => c.codename === codename)
     },
   },
   computed: {
